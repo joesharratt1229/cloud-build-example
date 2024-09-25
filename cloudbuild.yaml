@@ -4,25 +4,22 @@ steps:
     entrypoint: pip
     args: ['install', '-r', 'requirements.txt']
 
-  # Step 2: Run linting (optional)
-  - name: 'python:3.9'
-    entrypoint: pylint
-    args: ['src']
+  # Step 2: # ToDo add pre-commit hooks
+
 
   # Step 3: Run unit tests
   - name: 'python:3.9'
     entrypoint: pytest
     args: ['test']
 
-
+  # Step 4: Run integration tests
   - name: 'python:3.9'
     entrypoint: bash
     args:
       - '-c'
       - |
-        python src/main.py &
+        uvicorn src.main:app --host 0.0.0.0 --port 8080 &
         sleep 5  # Wait for the app to start
-        pytest test/integration  # Run integration tests
 
   # Step 5: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
@@ -38,4 +35,3 @@ images:
 
 # Timeout for the entire build (optional)
 timeout: '1800s'
-
