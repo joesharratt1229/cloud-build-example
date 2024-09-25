@@ -14,7 +14,7 @@ steps:
     entrypoint: pytest
     args: ['test']
 
-  # Step 4: Run the FastAPI app and perform integration tests
+
   - name: 'python:3.9'
     entrypoint: bash
     args:
