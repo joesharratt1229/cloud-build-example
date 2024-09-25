@@ -1,0 +1,17 @@
+steps:
+  # Step 1: Install dependencies
+  - name: 'python:3.9'
+    entrypoint: pip
+    args: ['install', '-r', 'requirements.txt']
+
+  # Step 2: Run linting (optional)
+  - name: 'python:3.9'
+    entrypoint: pylint
+    args: ['src']
+
+  # Step 3: Run unit tests
+  - name: 'python:3.9'
+    entrypoint: pytest
+    args: ['test']
+
+
