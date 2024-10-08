@@ -33,5 +33,9 @@ steps:
 images:
   - 'gcr.io/$PROJECT_ID/fastapi-app:$COMMIT_SHA'
 
+options:
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
+serviceAccount: 'joes-133@sincere-hearth-396513.iam.gserviceaccount.com'
+
 # Timeout for the entire build (optional)
 timeout: '1800s'
