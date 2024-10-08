@@ -1,0 +1,13 @@
+fastapi==0.114.0
+uvicorn==0.30.6
+starlette==0.38.5
+pydantic==2.9.1
+pydantic-settings==2.5.2
+python-dotenv==1.0.1
+fitz==0.1.1
+langchain==0.2.16
+langchain-core==0.2.39
+langchain-google-vertexai==1.0.10
+langchain-google-community==1.0.8
+langchain-openai==0.2.1
+langchain-text-splitters==0.2.1
