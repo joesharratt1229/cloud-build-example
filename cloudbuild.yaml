@@ -1,8 +1,8 @@
 steps:
   # Step 1: Install dependencies
-  - name: 'python:3.9'
+  - name: 'python:3.11-slim'
     entrypoint: pip
-    args: ['install', '-r', 'requirements.txt']
+    args: ['install', '-r', 'requirements-dev.txt']
 
   # Step 2: # ToDo add pre-commit hooks
 
@@ -10,7 +10,7 @@ steps:
   # Step 3: Run unit tests
   - name: 'python:3.9'
     entrypoint: pytest
-    args: ['test']
+    args: ['tests']
 
   # Step 4: Run integration tests
   - name: 'python:3.9'
