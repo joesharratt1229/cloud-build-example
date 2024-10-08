@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin File Upload</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        #file-input {
+            margin-right: 10px;
+        }
+        #upload-button {
+            padding: 10px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #upload-button:hover {
+            background-color: #27ae60;
+        }
+        #upload-status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin File Upload</h1>
+    <input type="file" id="file-input" accept=".pdf">
+    <button id="upload-button">Upload File</button>
+    <div id="upload-status"></div>
+
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const uploadButton = document.getElementById('upload-button');
+        const uploadStatus = document.getElementById('upload-status');
+
+        async function uploadFile() {
+            const file = fileInput.files[0];
+            if (!file) {
+                uploadStatus.textContent = 'Please select a file to upload.';
+                return;
+            }
+
+            if (!file.name.endsWith('.pdf')) {
+                uploadStatus.textContent = 'Only PDF files are allowed.';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('/file/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    uploadStatus.textContent = `File uploaded successfully`;
+                    fileInput.value = ''; // Clear the file input
+                } else {
+                    uploadStatus.textContent = `Upload failed: ${result.detail}`;
+                }
+            } catch (error) {
+                uploadStatus.textContent = `An error occurred: ${error.message}`;
+            }
+        }
+
+        uploadButton.addEventListener('click', uploadFile);
+    </script>
+</body>
+</html>
